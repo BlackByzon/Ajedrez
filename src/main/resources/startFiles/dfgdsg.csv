@@ -1,0 +1,9 @@
+id, nombre, casilla, color
+5,rey,E8,negro
+6,peon,C7,negro
+7,peon,D7,negro
+8,peon,E7,negro
+0,peon,C2,blanco
+1,peon,D2,blanco
+2,peon,E2,blanco
+3,rey,E1,blanco

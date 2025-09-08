@@ -1,0 +1,25 @@
+id, nombre, casilla, color
+16,torre,A8,negro
+22,caballo,B8,negro
+14,alfil,C8,negro
+9,reina,D8,negro
+10,rey,E8,negro
+15,alfil,F8,negro
+23,caballo,G8,negro
+17,torre,H8,negro
+0,peon,A2,blanco
+1,peon,B2,blanco
+2,peon,C2,blanco
+3,peon,D2,blanco
+4,peon,E2,blanco
+5,peon,F2,blanco
+6,peon,G2,blanco
+7,peon,H2,blanco
+18,torre,A1,blanco
+20,caballo,B1,blanco
+12,alfil,C1,blanco
+8,reina,D1,blanco
+11,rey,E1,blanco
+13,alfil,F1,blanco
+21,caballo,G1,blanco
+19,torre,H1,blanco

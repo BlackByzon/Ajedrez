@@ -1,0 +1,10 @@
+id, nombre, casilla, color
+ID:10,posicionInicial:C2,posicionAMover:C4,IDPiezaCapturada:null,null
+ID:27,posicionInicial:D7,posicionAMover:D5,IDPiezaCapturada:null,null
+ID:10,posicionInicial:C4,posicionAMover:D5,IDPiezaCapturada:27,null
+ID:26,posicionInicial:C7,posicionAMover:C6,IDPiezaCapturada:null,null
+ID:10,posicionInicial:D5,posicionAMover:C6,IDPiezaCapturada:26,null
+ID:19,posicionInicial:D8,posicionAMover:D7,IDPiezaCapturada:null,null
+ID:10,posicionInicial:C6,posicionAMover:D7,IDPiezaCapturada:19,null
+ID:28,posicionInicial:E7,posicionAMover:E6,IDPiezaCapturada:null,null
+ID:10,posicionInicial:D7,posicionAMover:E8,IDPiezaCapturada:20,null
