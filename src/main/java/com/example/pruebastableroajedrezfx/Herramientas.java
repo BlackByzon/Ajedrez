@@ -9,9 +9,9 @@ import java.util.ArrayList;
 
 public class Herramientas {
     public static void revisarCSVdeBDD() throws Exception{
-        String url = "jdbc:mysql://localhost:3306/ajedrez";
-        String user = "root";
-        String password = "root";
+        String url = System.getenv("DB_URL");
+        String user = System.getenv("DB_USER");
+        String password = System.getenv("DB_PASS");
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             String sql = "SELECT nombre, archivo FROM comienzoscustom";
@@ -45,9 +45,9 @@ public class Herramientas {
         }
     }
     public static void subirArchivos(){
-        String url = "jdbc:mysql://localhost:3306/ajedrez";
-        String usuario = "root";
-        String clave = "root";
+        String url = System.getenv("DB_URL");
+        String usuario = System.getenv("DB_USER");
+        String clave = System.getenv("DB_PASS");
 
         String rutaCarpeta = "src/main/resources/startFiles/"; // Cambia por tu carpeta
         File carpeta = new File(rutaCarpeta);
