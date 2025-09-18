@@ -5,6 +5,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;       // para manejar archivos binarios
+import java.sql.Connection;       // para la conexión
+import java.sql.DriverManager;    // para crear la conexión
+import java.sql.PreparedStatement; // para consultas parametrizadas
+import java.sql.ResultSet;        // para los resultados de la consulta
+import java.sql.SQLException;     // para manejar excepciones SQL
 
 public class VentanaPrincipal extends Application {
     static HelloApplication ajedrezApp = new HelloApplication();
@@ -14,6 +22,11 @@ public class VentanaPrincipal extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        try {
+            Herramientas.revisarCSVdeBDD();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         Button botonAjedrez = new Button("Abrir Tablero de Ajedrez");
         Button botonCSV = new Button("Entrar generador de comienzos ");
         Button CSVCustomizado = new Button("Entrar a carpeta de CSV customizados ");
@@ -37,6 +50,8 @@ public class VentanaPrincipal extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
+
 
     public static void abrirVentanaAjedrez(Stage primaryStage) {
         ajedrezApp = new HelloApplication();

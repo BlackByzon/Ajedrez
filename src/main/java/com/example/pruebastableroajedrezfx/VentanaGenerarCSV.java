@@ -294,6 +294,7 @@ public class VentanaGenerarCSV extends Application {
     public void llamarCSV (String nombre){
         if(reyBlancoEnCampo&&reyNegroEnCampo){
             Herramientas.generarCSV(nombre, tablero);
+            Herramientas.subirArchivos();
         }else{
             System.out.println("Pon los 2 reyes parguela");
         }

@@ -15,10 +15,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.Stage;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -101,10 +102,12 @@ public class TablaCarpetaCSV extends Application {
             }
         });
         primaryStage.show();
+
     }
     private void abrirVentanaAjedrez(Stage primaryStage) {
         HelloApplication ajedrezApp = new HelloApplication();
         try {
+            Herramientas.subirArchivos();
             Main.inicio(archivoSeleccionado, true);
             ajedrezApp.start(new Stage()); // Crear y mostrar la ventana secundaria (HelloApplication)
             primaryStage.close(); // Cerrar la ventana principal
@@ -112,6 +115,8 @@ public class TablaCarpetaCSV extends Application {
             e.printStackTrace();
         }
     }
+
+
     private void crearTablero() {
         gridPane.getChildren().clear(); // Limpiar las celdas previas del tablero
 

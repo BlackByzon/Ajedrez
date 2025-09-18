@@ -1,0 +1,7 @@
+id, nombre, casilla, color
+4,alfil,C8,blanco
+1,rey,D8,negro
+5,alfil,E8,blanco
+2,alfil,C1,negro
+0,rey,D1,blanco
+3,alfil,E1,negro

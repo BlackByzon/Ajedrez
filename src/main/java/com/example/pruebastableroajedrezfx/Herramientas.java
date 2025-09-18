@@ -1,10 +1,101 @@
 package com.example.pruebastableroajedrezfx;
 
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class Herramientas {
+    public static void revisarCSVdeBDD() throws Exception{
+        String url = "jdbc:mysql://localhost:3306/ajedrez";
+        String user = "root";
+        String password = "root";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password)) {
+            String sql = "SELECT nombre, archivo FROM comienzoscustom";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                String nombre = rs.getString("nombre");
+                InputStream archivo = rs.getBinaryStream("archivo");
+
+                if (archivo != null) {
+                    String rutaSalida = "src/main/resources/startFiles/" + nombre;
+                    File file = new File(rutaSalida);
+
+                    if (file.exists()) {
+                        System.out.println("Ya existe: " + rutaSalida + " → no se hace nada.");
+                    } else {
+                        try (FileOutputStream fos = new FileOutputStream(file)) {
+                            byte[] buffer = new byte[4096];
+                            int bytesRead;
+                            while ((bytesRead = archivo.read(buffer)) != -1) {
+                                fos.write(buffer, 0, bytesRead);
+                            }
+                        }
+                        System.out.println("Archivo exportado: " + rutaSalida);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static void subirArchivos(){
+        String url = "jdbc:mysql://localhost:3306/ajedrez";
+        String usuario = "root";
+        String clave = "root";
+
+        String rutaCarpeta = "src/main/resources/startFiles/"; // Cambia por tu carpeta
+        File carpeta = new File(rutaCarpeta);
+        File[] archivos = carpeta.listFiles();
+
+        if (archivos == null || archivos.length == 0) {
+            System.out.println("No hay archivos en la carpeta.");
+            return;
+        }
+
+        try (Connection conn = DriverManager.getConnection(url, usuario, clave)) {
+
+            // Preparar statements
+            String verificarSQL = "SELECT COUNT(*) FROM comienzoscustom WHERE nombre = ?";
+            PreparedStatement verificarStmt = conn.prepareStatement(verificarSQL);
+
+            String insertarSQL = "INSERT INTO comienzoscustom (nombre, archivo) VALUES (?, ?)";
+            PreparedStatement insertarStmt = conn.prepareStatement(insertarSQL);
+
+            for (File archivo : archivos) {
+                if (archivo.isFile()) {
+
+                    // Verificar si ya existe
+                    verificarStmt.setString(1, archivo.getName());
+                    ResultSet rs = verificarStmt.executeQuery();
+                    rs.next();
+                    int count = rs.getInt(1);
+
+                    if (count == 0) {
+                        // Insertar archivo
+                        try (FileInputStream fis = new FileInputStream(archivo)) {
+                            insertarStmt.setString(1, archivo.getName());
+                            insertarStmt.setBlob(2, fis);
+                            insertarStmt.executeUpdate();
+                            System.out.println("Subido: " + archivo.getName());
+                        }
+                    } else {
+                        System.out.println("Ya existe: " + archivo.getName());
+                    }
+                }
+            }
+
+            System.out.println("✅ Proceso finalizado.");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
     public static void generarCSV (String nombre, ArrayList<ArrayList>tablero){
 
         String filePath = "src/main/resources/startFiles/"+nombre+".csv";
